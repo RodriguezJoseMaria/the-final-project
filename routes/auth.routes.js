@@ -135,17 +135,6 @@ router.get("/logout", isAuthenticated, (req, res, next) => {
 
 })
 
-router.post("/upload-image", fileUploader.single("userImage"), (req, res, next) => {
-
-  if (!req.file) {
-    next(new Error("No file uploaded!"));
-    return;
-  }
-
-  res.json({ fileUrl: req.file.path });
-
-})
-
 router.get("/:userId", isAuthenticated, (req, res, next) => {
   const { userId } = req.params;
 
@@ -165,59 +154,5 @@ router.get("/:userId", isAuthenticated, (req, res, next) => {
       res.status(500).json({ message: "Error retrieving user" });
     })
 })
-
-router.put("/:userId", isAuthenticated, fileUploader.single("userImage"), (req, res, next) => {
-  const { userId } = req.params;
-  const { username, firstName, lastName, email, password, userImage, aboutMe, userKanban, userNotes } = req.body;
-  // mirar el tema de la imagen
-  
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-  
-  User.findByIdAndUpdate(userId, { username, firstName, lastName, email, password, userImage, aboutMe }, { new: true })
-  .then(userUpdated => {
-    return res.json(userUpdated);
-  })
-  .catch(err => {
-    console.error("Error while updating user:", err);
-  })
-})
-
-router.delete("/:userId", isAuthenticated, (req, res, next) => {
-  const { userId } = req.params;
-  
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-  
-  User.findByIdAndDelete(userId)
-  .then(() => {
-    return res.json({ message: `User with ${userId} has been removed succesfully` });
-  })
-  .catch(err => {
-    console.error("Error deleting user:", err);
-    res.status(500).json({ message: "Error deleting user" });
-  })
-})
-
-router.put("/:userId/delete-image", isAuthenticated, (req, res, next) => {
-  const { userId } = req.params;
-  
-  User.findOneAndUpdate( 
-    { _id: userId }, 
-    { userImage: "" }
-    )
-    .then(() => {
-      res.redirect(`/auth/${id}/ `); // mirar esto
-    })
-    .catch(err => {
-      next(err);
-      console.error("Error deleting user image:", err);
-      res.status(500).json({ message: "Error deleting user image" });
-    })
-  })
   
   module.exports = router;
