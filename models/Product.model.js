@@ -14,9 +14,15 @@ const productSchema = new Schema(
       required: true,
       trim: true,
     },
-    photo: {
-        type: String,
-        required: true,
+    category: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    gender: {
+      type: String,
+      required: true,
+      unique: true,
     }
   },
 
