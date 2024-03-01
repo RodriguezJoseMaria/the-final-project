@@ -7,6 +7,9 @@ const bcrypt = require("bcrypt");
 // ℹ️ Handles password encryption
 const jwt = require("jsonwebtoken");
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
 
@@ -109,6 +112,8 @@ router.post("/login", (req, res, next) => {
           expiresIn: "6h",
         });
 
+        req.headers.authorization=authToken;
+        console.log(req.headers.authorization)
         // Send the token as the response
         res.status(200).json({ authToken: authToken });
       } else {

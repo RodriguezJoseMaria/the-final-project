@@ -24,6 +24,9 @@ app.use("/auth", authRoutes);
 const productRoutes = require("./routes/product.routes");
 app.use(productRoutes);
 
+const cartRoutes = require("./routes/cart.routes");
+app.use(cartRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
