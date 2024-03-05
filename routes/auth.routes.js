@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 // ℹ️ Handles password encryption
 const jwt = require("jsonwebtoken");
 
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 // Require the User model in order to interact with the database
@@ -112,8 +112,8 @@ router.post("/login", (req, res, next) => {
           expiresIn: "6h",
         });
 
-        req.headers.authorization=authToken;
-        console.log(req.headers.authorization)
+        req.headers.authorization = authToken;
+        console.log(req.headers.authorization);
         // Send the token as the response
         res.status(200).json({ authToken: authToken });
       } else {
@@ -133,9 +133,7 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 
-router.get("/logout", isAuthenticated, (req, res, next) => {
-
-})
+router.get("/logout", isAuthenticated, (req, res, next) => {});
 
 router.get("/:userId", isAuthenticated, (req, res, next) => {
   const { userId } = req.params;
@@ -148,13 +146,13 @@ router.get("/:userId", isAuthenticated, (req, res, next) => {
   }
 
   User.findById(userId)
-    .then(userFound => {
+    .then((userFound) => {
       return res.json(userFound);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error("Error finding user:", err);
       res.status(500).json({ message: "Error retrieving user" });
-    })
-})
-  
-  module.exports = router;
+    });
+});
+
+module.exports = router;
