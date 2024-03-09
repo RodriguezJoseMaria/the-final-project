@@ -22,7 +22,7 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/api/auth", authRoutes);
 
 const productRoutes = require("./routes/product.routes");
-app.use(productRoutes);
+app.use("/api", productRoutes);
 
 const cartRoutes = require("./routes/cart.routes");
 app.use(cartRoutes);
