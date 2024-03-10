@@ -22,24 +22,22 @@ const productSchema = new Schema(
     category: {
       type: String,
       required: true,
-      unique: true,
     },
     gender: {
       type: String,
       required: true,
-      unique: true,
     },
     sizes: [
       {
         size: String,
         stock: Number,
-      }
-    ]
+      },
+    ],
   },
 
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`    
-    timestamps: true
+    // this second object adds extra properties: `createdAt` and `updatedAt`
+    timestamps: true,
   }
 );
 
