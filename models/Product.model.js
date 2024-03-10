@@ -22,10 +22,12 @@ const productSchema = new Schema(
     category: {
       type: String,
       required: true,
+      unique: false,
     },
     gender: {
       type: String,
       required: true,
+      unique: false,
     },
     sizes: [
       {
